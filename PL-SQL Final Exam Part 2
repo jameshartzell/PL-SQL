@@ -1,0 +1,13 @@
+create or replace FUNCTION TOT_PURCH_SF
+  (p_shID in number) --idshopper
+return number
+AS
+  lv_tot number(5,2) :=0; --var for total
+BEGIN
+  select sum(total) --find and assign total
+  into lv_tot
+  from bb_basket
+  where idshopper = p_shID group by idshopper;
+  
+  return lv_tot;
+END TOT_PURCH_SF;
