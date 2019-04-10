@@ -1,0 +1,40 @@
+create or replace PROCEDURE MEMBER_CK_SP
+  (p_user in varchar2,
+   p_pass in out varchar2)
+AS
+  lv_refUN varchar2(8); --username check var
+  lv_refPWD varcahr2(8); --password check var
+  lv_a varchar2(30); --firstname var
+  lv_b varchar2(30); --lastname var
+  lv_c varchar2(30); --cookie var
+  notfound exception;
+BEGIN
+  --dbms_output.put_line('member_ck_sp started'); --debug
+  
+  select USERNAME, PASSWORD, FIRSTNAME, LASTNAME, COOKIE
+  into lv_refUN, lv_refPWD, lv_a, lv_b, lv_c
+  from BB_SHOPPER --get data for login verification
+  where USERNAME like p_user or PASSWORD like p_pass;
+  if SQL%notfound then
+    raise notfound;
+  end if;
+  
+  if lv_refUN = p_user and lv_refPWD = p_pass then --check data
+    insert into BB_AUDIT_LOGON (USERID, LOGDATE)
+      values (p_user, sysdate); --logging user login
+    commit;
+    dbms_output.put_line('Login successful');
+    dbms_output.put_line('Member name: '||lv_a||' '||lv_b);
+    dbms_output.put_line('Cookie: '||lv_c);
+  else
+    dbms_output.put_line('INVALID'); --if username or password incorrect
+  end if;
+  
+  --dbms_output.put_line('member_ck_sp finished'); --debug
+  dbms_output.put_line(' ');
+exception
+  when notfound then
+    dbms_output.put_line('invalid username or password');
+  when others then
+    dbms_output.put_line('A grave error has occured');
+END MEMBER_CK_SP;
