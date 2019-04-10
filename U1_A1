@@ -1,0 +1,23 @@
+--James
+DECLARE
+  lv_EMP_NO NUMBER(4,0);
+  lv_JOB_TITLE VARCHAR2(10);
+  lv_EMP_NAME VARCHAR2(25);
+  lv_MGR_ID NUMBER(4,0);
+  lv_HIRE_DATE DATE;
+  lv_SAL NUMBER(7,0);
+  lv_DEPT_NO NUMBER(2,0);
+  
+BEGIN
+  lv_EMP_NO := 1337;
+  lv_EMP_NAME := 'Hartzell';
+  lv_JOB_TITLE := 'Progrmr';
+  lv_MGR_ID := 9001;
+  lv_HIRE_DATE := TO_DATE('8-NOV-2018');
+  lv_SAL := 10000;
+  lv_DEPT_NO := 40;
+  
+  INSERT INTO EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, DEPTNO)
+  VALUES (lv_EMP_NO, lv_EMP_NAME, lv_JOB_TITLE, lv_MGR_ID, lv_HIRE_DATE, lv_SAL, lv_DEPT_NO);
+  COMMIT;
+END;
