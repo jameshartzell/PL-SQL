@@ -1,0 +1,28 @@
+--================================================================
+--Author: James
+--Create date: 11/15/18
+--Description: finding differences between min&max wages
+--Version: 3
+--Changes: used cursor and record instead of sql 'into' statement
+--================================================================
+declare
+  cursor eye is
+    select JOB_TITLE, MIN_SALARY, MAX_SALARY
+    from JOBS;
+  type typeR is record(
+    name JOBS.JOB_TITLE%type,
+    min JOBS.MIN_SALARY%type,
+    max JOBS.MAX_SALARY%type);
+  recR typeR;
+  lv_diff number(6,0) := 0;
+begin
+  open eye;
+  loop
+    fetch eye into recR;
+      exit when eye%notfound;
+    lv_diff := recR.max - recR.min;
+    dbms_output.put_line('Difference between minimum and maximum'||
+                        ' salary for '||recR.name||': '||lv_diff);
+    dbms_output.put_line(' ');
+  end loop;
+end;
