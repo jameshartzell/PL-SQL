@@ -1,0 +1,41 @@
+-- anonymous PL/SQL code written by James Hartzell
+declare
+  lv_pledgeID number(3,0) := 113;
+  lv_donorID number(3,0);
+  lv_pledgeAMT number(6,0);
+  lv_totalPaid number(6,0);
+  lv_diff number(6,0);
+  notfound exception;
+begin
+  select IDDONOR, PLEDGEAMT
+  into lv_donorID, lv_pledgeAMT
+  from DD_PLEDGE
+  where IDPLEDGE = lv_pledgeID;
+  
+  if SQL%NOTFOUND then
+    raise notfound;
+  end if;
+  
+  select sum(PAYAMT)
+  into lv_totalPaid
+  from DD_PAYMENT
+  where IDPLEDGE = lv_pledgeID;
+  
+  if SQL%NOTFOUND then
+    raise notfound;
+  end if;
+  
+  lv_diff := lv_pledgeAmt - lv_totalPaid;
+  
+  dbms_output.put_line('Pledge ID: '||lv_pledgeID||
+                      ' Donor ID: '||lv_donorID||
+                      ' Pledge Amount: '||lv_pledgeAmt||
+                      ' Amount Paid: '||lv_totalPaid||
+                      ' Balance: '||lv_diff);
+exception
+    when notfound then
+      dbms_output.put_line('Invalid Donor ID');
+    when others then
+      dbms_output.put_line('There was a problem with your request,'||
+                           'please contact support.');
+end;
