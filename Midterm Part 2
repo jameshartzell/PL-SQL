@@ -1,0 +1,18 @@
+-- James Hartzell
+declare
+  lv_newID number(3,0) := 123;
+  lv_oldID number(3,0) := 305;
+  notfound exception;
+begin
+  UPDATE DD_DONOR
+    SET IDDONOR = lv_newID
+    WHERE IDDONOR = lv_oldID;
+  if SQL%NOTFOUND then
+    raise notfound;
+  end if;
+exception
+  when notfound then
+    dbms_output.put_line('Invalid Donor ID');
+  when others then
+    dbms_output.put_line('There was a problem with your request, please contact support.');
+end;
