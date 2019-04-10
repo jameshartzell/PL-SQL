@@ -1,0 +1,94 @@
+--=========================================================================================
+--Author: James
+--Create date: 11/29/18
+--Description: create and populate employees, departments, locations, and countries tables
+--Version: 1.0001
+--Changes: spelled 'SALARY' correctly
+--=========================================================================================
+create table EMPLOYEES(
+  EMPLOYEE_ID NUMBER(3,0) PRIMARY KEY,
+  FIRST_NAME varchar2(30) not null,
+  LAST_NAME varchar2(30) not null,
+  EMAIL varchar2(30) not null,
+  PHONE_NUMBER varchar2(13) not null,
+  HIRE_DATE date not null,
+  JOB_ID number(3,0) not null,
+  SALARY number(7,2) not null,
+  COMMISSION_PCT number(2,0),
+  MANAGER_ID number(3,0),
+  DEPARTMENT_ID number(3,0) not null;
+insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, 
+                       MANAGER_ID, DEPARTMENT_ID)
+values (1,'Catherine','Smith','csmith2354@company.com','555-555-5555','01-APR-17',1,20000,null,01,01);
+insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, 
+                       MANAGER_ID, DEPARTMENT_ID)
+values (2,'Melinda','Smith','msmith2354@company.com','555-555-5555','01-APR-17',2,35000,null,02,02);
+insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, 
+                       MANAGER_ID, DEPARTMENT_ID)
+values (3,'Susie','Smith','ssmith2354@company.com','555-555-5555','01-APR-17',4,20000,null,03,03);
+insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, 
+                       MANAGER_ID, DEPARTMENT_ID)
+values (4,'George','Smith','gsmith2354@company.com','555-555-5555','01-APR-17',6,25000,null,04,04);
+insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, 
+                       MANAGER_ID, DEPARTMENT_ID)
+values (5,'Arnold','Smith','asmith2354@company.com','555-555-5555','01-APR-17',6,25000,null,05,05);
+insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, 
+                       MANAGER_ID, DEPARTMENT_ID)
+values (6,'Stephen','Smith','ssmith2355@company.com','555-555-5555','01-APR-17',6,25000,null,06,06);
+
+create table DEPARTMENTS(
+  DEPARTMENT_ID number(3,0) PRIMARY KEY,
+  DEPARTMENT_NAME varchar2(30) not null,
+  MANAGER_ID number(3,0),
+  LOCATION_ID number(3,0));
+insert into DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID)
+values(1,'Customer',01,01);
+insert into DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID)
+values(2,'Safety',02,02);
+insert into DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID)
+values(3,'Support',03,03);
+insert into DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID)
+values(4,'Upkeep',04,04);
+insert into DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID)
+values(5,'HR',05,05);
+insert into DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID)
+values(6,'Software',06,06);
+
+create table LOCATIONS (
+  LOCATION_ID number(3,0) PRIMARY KEY,
+  STREET_ADDRESS varchar2(80) not null,
+  POSTAL_CODE varchar2(12) not null,
+  CITY varchar2(30) not null,
+  STATE_PROVINCE varchar2(30) not null,
+  COUNTRY_ID number(3,0) not null);
+insert into LOCATIONS (LOCATION_ID, STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID)
+values (1,'22 Acacia Ave','12345','Va Beach','VA',1);
+insert into LOCATIONS (LOCATION_ID, STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID)
+values (2,'369 Alimony Dr','23456','Portsmouth','VA',1);
+insert into LOCATIONS (LOCATION_ID, STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID)
+values (3,'555 Tidewater Dr','34567','Norfolk','VA',1);
+insert into LOCATIONS (LOCATION_ID, STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID)
+values (4,'1873 Roanoke Cr','45678','Chesapeake','VA',1);
+insert into LOCATIONS (LOCATION_ID, STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID)
+values (5,'398 Morgan Ctr','56789','Va Beach','VA',1);
+insert into LOCATIONS (LOCATION_ID, STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID)
+values (6,'705 Stanford Rd','23452','Va Beach','VA',1);
+
+create table COUNTRIES(
+  COUNTRY_ID number(3,0) PRIMARY KEY,
+  COUNTRY_NAME varchar2(30) not null,
+  REGION_ID number(3,0) not null);
+insert into COUNTRIES(COUNTRY_ID, COUNTRY_NAME, REGION_ID)
+values(1,'United States',1);
+insert into COUNTRIES(COUNTRY_ID, COUNTRY_NAME, REGION_ID)
+values(2,'Argentina',2);
+insert into COUNTRIES(COUNTRY_ID, COUNTRY_NAME, REGION_ID)
+values(3,'Germany',3);
+insert into COUNTRIES(COUNTRY_ID, COUNTRY_NAME, REGION_ID)
+values(4,'South Korea',4);
+insert into COUNTRIES(COUNTRY_ID, COUNTRY_NAME, REGION_ID)
+values(5,'South Africa',5);
+insert into COUNTRIES(COUNTRY_ID, COUNTRY_NAME, REGION_ID)
+values(6,'Israel',6);
+
+commit;
