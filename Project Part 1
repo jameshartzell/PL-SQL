@@ -1,0 +1,33 @@
+--project code uses LabDB
+--=============================================================
+--Author:James
+--Create date: 11/27/18
+--Description: Finding the number of months current
+--             employees have worked with us
+--Version: 3.6
+--Changes: using implicit record, replaced timeT with num to
+--         hold date, output formatting OCD
+--=============================================================
+declare
+  cursor cur_read is
+    select EMPLOYEE_ID, END_DATE, to_date(START_DATE, 'DD-MON-YY') as SD,
+            to_date(END_DATE, 'DD-MON-YY') as ED, sysdate as SYSD
+    from JOB_HISTORY;
+  num number(3,0); --date var
+
+begin
+  for rec_read in cur_read loop --read data
+    dbms_output.put_line('Employee'||recread.EMPLOYEE_ID||' has ');
+    if rec_read.END_DATE is null then --if emp is still employed here
+      num := sysdate-rec_read.SD; --initial time worked calc
+      num := num/12; --months conversion
+      dbms_output.put_line(num);
+    else --if emp has left/been terminated
+      num := rec_read.ED-rec_read.SD; --time worked
+      num := num/12;
+      dbms_output.put_line(num);
+    end if;
+    dbms_output.put_line('months with us');
+    dbms_output.put_line(' ');
+  end loop;
+end;
