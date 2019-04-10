@@ -1,0 +1,25 @@
+--==================================================
+--Author: James
+--Create date: 11/29/18
+--Description: gather salary data including bonuses
+--Version: 1
+--Changes: n/a
+--==================================================
+declare
+  lv_min JOBS.MIN_SALARY%type;
+begin
+  select MIN_SALARY
+  into lv_min
+  from JOBS
+  where MAX_SALARY like 85000;
+  
+  case lv_min
+    when 25000 then lv_min := lv_min + 6500;
+    when 35000 then lv_min := lv_min + 8500;
+    when 40000 then lv_min := lv_min + 12500;
+    when 45000 then lv_min := lv_min + 15500;
+    else lv_min := lv_min + 500;
+  end case;
+  dbms_output.put_line('The programmers in out company are earning '||
+                       'at least: '||lv_min);
+end;
