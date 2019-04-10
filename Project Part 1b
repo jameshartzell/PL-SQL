@@ -1,0 +1,25 @@
+--============================================================
+--Author: James
+--Create date: 11/29/18
+--Description: increase all minimum salaries using for loop
+--Version: 1.5
+--Changes: removed 'open' and 'close' statements
+--============================================================
+declare
+  cursor cur_eye is
+    select MIN_SALARY
+    from JOBS;
+  lv_inc JOBS.MIN_SALARY%type := 5000;
+  notfound exception;
+begin
+  for rec_eye in cur_eye loop
+    rec_eye.MIN_SALARY := rec_eye.MIN_SALARY + lv_inc;
+      if cur_eye%notfound = true then
+        raise notfound;
+      end if;
+    end loop;
+  commit;
+exception
+  when notfound then
+    dbms_output.put_line('could not fetch data');
+end;
